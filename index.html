@@ -19,8 +19,9 @@ body{font-family:-apple-system,"PingFang TC",sans-serif;background:var(--bg);col
 .wrap{padding:14px;}
 .mhdr{font-size:12px;font-weight:800;color:var(--gold);letter-spacing:1px;margin:14px 4px 8px;}
 .note{background:var(--card);border-radius:14px;padding:15px 16px;margin-bottom:10px;box-shadow:0 1px 6px rgba(0,61,145,.07);border-left:4px solid var(--brand2);cursor:pointer;}
+.note .trow{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;}
 .note .t{font-size:15.5px;font-weight:700;line-height:1.35;}
-.note .d{font-size:11.5px;color:var(--mut);margin-top:3px;}
+.note .dchip{font-size:11px;font-weight:700;background:#e5f2f5;color:var(--brand);border-radius:6px;padding:2px 7px;white-space:nowrap;flex-shrink:0;margin-top:1px;}
 .note .p{font-size:12.5px;color:var(--mut);margin-top:7px;line-height:1.5;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
 .empty{text-align:center;color:var(--mut);font-size:13px;padding:30px;}
 .foot{text-align:center;font-size:11px;color:#a8a29e;padding:20px;}
@@ -51,47 +52,62 @@ body{font-family:-apple-system,"PingFang TC",sans-serif;background:var(--bg);col
 .nhdr h3{font-size:15px;font-weight:800;color:var(--brand);}
 .nhdr button{background:none;border:none;font-size:20px;cursor:pointer;color:var(--mut);padding:0 2px;}
 .nsub{font-size:11.5px;color:var(--mut);margin-bottom:12px;}
-.nrow{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;align-items:center;}
-.nrow select{font-size:13px;padding:8px 10px;border:1.5px solid var(--line);border-radius:10px;background:#f5f8fa;color:var(--ink);flex-shrink:0;}
+.nrow{display:flex;gap:6px;margin-bottom:8px;align-items:center;min-width:0;}
+.nrow select{font-size:13px;padding:8px 10px;border:1.5px solid var(--line);border-radius:10px;background:#f5f8fa;color:var(--ink);flex-shrink:0;max-width:40%;}
 .nrow input{flex:1 1 120px;min-width:0;font-size:13px;padding:8px 10px;border:1.5px solid var(--line);border-radius:10px;background:#f5f8fa;color:var(--ink);}
 .nrow input:focus,.nrow select:focus{outline:none;border-color:var(--brand2);}
-.nbtn{font-size:13px;padding:8px 12px;border:none;border-radius:10px;cursor:pointer;font-weight:700;white-space:nowrap;}
+.nbtns{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:12px;}
+.nbtn{font-size:13px;padding:8px 0;border:none;border-radius:10px;cursor:pointer;font-weight:700;white-space:nowrap;text-align:center;}
 .nbtn.add{background:var(--brand);color:#fff;}
 .nbtn.exp{background:#e5f2f5;color:var(--brand);}
 .nbtn.clr{background:#fee2e2;color:#b91c1c;}
-.nitems{display:flex;flex-direction:column;gap:8px;}
-.nitem{background:#f5f8fa;border-radius:10px;padding:10px 12px;display:flex;align-items:flex-start;gap:8px;}
+.nitems{display:flex;flex-direction:column;}
+.nitem{border-bottom:1px solid var(--line);padding:10px 12px;display:flex;align-items:flex-start;gap:8px;}
+.nitem:last-child{border-bottom:none;}
 .nitem .ntag{font-size:11px;background:var(--brand2);color:#fff;border-radius:6px;padding:2px 7px;white-space:nowrap;flex-shrink:0;margin-top:2px;}
 .nitem .ntxt{flex:1;font-size:13.5px;line-height:1.5;color:var(--ink);word-break:break-all;}
 .nitem .nts{font-size:10.5px;color:var(--mut);margin-top:3px;}
-.nitem .ndel{background:none;border:none;cursor:pointer;color:#c4a0a0;font-size:16px;flex-shrink:0;}
+.nitem .ndel{background:none;border:none;cursor:pointer;color:#c4a0a0;font-size:16px;flex-shrink:0;display:flex;align-items:center;}
 .nempty{text-align:center;color:var(--mut);font-size:13px;padding:24px;}
+button svg{vertical-align:-.12em;}
+.rbar button,.nfab,.nhdr button,.nbtn{display:inline-flex;align-items:center;justify-content:center;gap:5px;}
+@media (max-width:480px){
+  .wrap{padding:10px;}
+  .note{padding:13px 14px;}
+  .rbody{padding:14px 14px 60px;}
+  .npanel{padding:16px 12px 32px;}
+  .nrow{flex-direction:column;align-items:stretch;}
+  .nrow select{max-width:none;width:100%;}
+  .nrow input{width:100%;}
+}
 </style>
 </head>
 <body>
 <div class="top">
   <h1>Money</h1>
-  <div class="sub">學習筆記 · 更新 2026-07-02 13:18</div>
+  <div class="sub">學習筆記 · 更新 2026-07-02 22:06</div>
   <input class="search" id="search" type="search" placeholder="搜尋筆記…" autocomplete="off">
 </div>
 <div class="wrap" id="list"></div>
 <div class="foot">共 16 篇學習筆記 · 學習路上</div>
 
 <div class="reader" id="reader">
-  <div class="rbar"><button onclick="closeReader()">‹ 返回</button><span class="rt" id="rtitle"></span></div>
+  <div class="rbar"><button onclick="closeReader()"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>返回列表</button><span class="rt" id="rtitle"></span></div>
   <div class="rbody" id="rbody"></div>
 </div>
 
-<button class="nfab" id="nfab" onclick="noteToggle()">📌 筆記</button>
+<button class="nfab" id="nfab" onclick="noteToggle()"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>我的筆記</button>
 <div class="npanel" id="npanel">
-  <div class="nhdr"><h3>學習筆記</h3><button onclick="noteToggle()">✕</button></div>
+  <div class="nhdr"><h3>學習筆記</h3><button onclick="noteToggle()" aria-label="關閉"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button></div>
   <div class="nsub">私人記錄，儲存在瀏覽器本機，重新整理後保留</div>
   <div class="nrow">
     <select id="ncat"><option>市場觀察</option><option>投資概念</option><option>工具技巧</option><option>靈感隨筆</option></select>
     <input id="ntxt" type="text" placeholder="輸入筆記、待辦、靈感…" autocomplete="off">
-    <button class="nbtn add" onclick="noteAdd()">+ 新增</button>
-    <button class="nbtn exp" onclick="noteExport()">↓ 匯出</button>
-    <button class="nbtn clr" onclick="noteClear()">清空</button>
+  </div>
+  <div class="nbtns">
+    <button class="nbtn add" onclick="noteAdd()">新增筆記</button>
+    <button class="nbtn exp" onclick="noteExport()">匯出筆記</button>
+    <button class="nbtn clr" onclick="noteClear()">清空筆記</button>
   </div>
   <div class="nitems" id="nitems"></div>
 </div>
@@ -110,8 +126,9 @@ function render(){
   let html="", lastYm="";
   f.forEach((n,i)=>{
     if(n.ym!==lastYm){html+=`<div class="mhdr">${ymLabel(n.ym)}</div>`;lastYm=n.ym;}
+    const chip=n.date?`<span class="dchip">${n.date.slice(5)}</span>`:"";
     html+=`<div class="note" onclick="openNote(${NOTES.indexOf(n)})">
-      <div class="t">${esc(n.title)}</div><div class="d">${n.date}</div>
+      <div class="trow"><div class="t">${esc(n.title)}</div>${chip}</div>
       <div class="p">${esc(n.preview)}</div></div>`;
   });
   list.innerHTML=html;
@@ -136,9 +153,9 @@ function nSave(a){localStorage.setItem(NK,JSON.stringify(a));}
 function nRender(){
   const a=nLoad();
   const el=document.getElementById('nitems');
-  if(!a.length){el.innerHTML='<div class="nempty">還沒有筆記，輸入後點「+ 新增」開始記錄 ✏️</div>';return;}
+  if(!a.length){el.innerHTML='<div class="nempty">還沒有筆記，輸入後點「新增筆記」開始記錄</div>';return;}
   el.innerHTML=a.slice().reverse().map((n,ri)=>
-    `<div class="nitem"><span class="ntag">${n.c}</span><div style="flex:1"><div class="ntxt">${esc(n.t)}</div><div class="nts">${n.d}</div></div><button class="ndel" onclick="nDel(${a.length-1-ri})">✕</button></div>`
+    `<div class="nitem"><span class="ntag">${n.c}</span><div style="flex:1"><div class="ntxt">${esc(n.t)}</div><div class="nts">${n.d}</div></div><button class="ndel" onclick="nDel(${a.length-1-ri})" aria-label="刪除"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button></div>`
   ).join('');
 }
 function noteAdd(){
